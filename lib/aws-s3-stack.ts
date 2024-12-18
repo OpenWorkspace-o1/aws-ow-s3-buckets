@@ -40,6 +40,13 @@ export class AwsS3Stack extends cdk.Stack {
           ],
         },
       ],
+      intelligentTieringConfigurations: [
+        {
+          name: 'optimize-storage-costs',
+          archiveAccessTierTime: cdk.Duration.days(90),
+          deepArchiveAccessTierTime: cdk.Duration.days(180),
+        },
+      ],
       serverAccessLogsBucket: new s3.Bucket(this, `${props.resourcePrefix}-s3-bucket-logs`, {
         bucketName: `${props.deployEnvironment}-${props.deployRegion}-s3-bucket-logs`,
         encryption: s3.BucketEncryption.S3_MANAGED,
