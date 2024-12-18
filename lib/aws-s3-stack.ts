@@ -26,6 +26,20 @@ export class AwsS3Stack extends cdk.Stack {
       autoDeleteObjects: removalPolicy === cdk.RemovalPolicy.DESTROY,
       accessControl: s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL,
       versioned: true, // Enable versioning
+      lifecycleRules: [
+        {
+          transitions: [
+            {
+              storageClass: s3.StorageClass.INFREQUENT_ACCESS,
+              transitionAfter: cdk.Duration.days(90),
+            },
+            {
+              storageClass: s3.StorageClass.GLACIER,
+              transitionAfter: cdk.Duration.days(180),
+            },
+          ],
+        },
+      ],
       serverAccessLogsBucket: new s3.Bucket(this, `${props.resourcePrefix}-s3-bucket-logs`, {
         bucketName: `${props.deployEnvironment}-${props.deployRegion}-s3-bucket-logs`,
         encryption: s3.BucketEncryption.S3_MANAGED,
