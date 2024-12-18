@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { AwsS3StackProps } from './AwsS3StackProps';
 import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as kms from 'aws-cdk-lib/aws-kms';
 
 export class AwsS3Stack extends cdk.Stack {
   /**
@@ -15,6 +16,12 @@ export class AwsS3Stack extends cdk.Stack {
     super(scope, id, props);
 
     const removalPolicy = props.deployEnvironment === 'production' ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY;
+
+    const kmsKey = new kms.Key(this, `${props.resourcePrefix}-${props.s3BucketName}-kms-key`, {
+      enableKeyRotation: true,
+      removalPolicy: removalPolicy,
+      description: `${props.resourcePrefix}-${props.s3BucketName}-kms-key`,
+    });
 
     // define an S3 bucket
     const s3Bucket = new s3.Bucket(this, `${props.resourcePrefix}-${props.s3BucketName}`, {
@@ -49,7 +56,8 @@ export class AwsS3Stack extends cdk.Stack {
       ],
       serverAccessLogsBucket: new s3.Bucket(this, `${props.resourcePrefix}-s3-bucket-logs`, {
         bucketName: `${props.deployEnvironment}-${props.deployRegion}-s3-bucket-logs`,
-        encryption: s3.BucketEncryption.S3_MANAGED,
+        encryption: s3.BucketEncryption.KMS,
+        encryptionKey: kmsKey,
         blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
         publicReadAccess: false,
         removalPolicy: removalPolicy,
