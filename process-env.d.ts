@@ -5,5 +5,6 @@ declare module NodeJS {
         ENVIRONMENT: string;
         APP_NAME: string;
         OWNER: string;
+        S3_BUCKET_NAME: string;
     }
 }
