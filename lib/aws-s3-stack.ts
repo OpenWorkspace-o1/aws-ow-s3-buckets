@@ -81,5 +81,19 @@ export class AwsS3Stack extends cdk.Stack {
       exportName: `${props.deployEnvironment}-${props.deployRegion}-${props.s3BucketName}-Arn-Export`,
       description: 'The ARN of the S3 bucket.',
     });
+
+    // export kmsKey ARN
+    new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.s3BucketName}-kms-key-Arn-Export`, {
+      value: kmsKey.keyArn,
+      exportName: `${props.deployEnvironment}-${props.deployRegion}-${props.s3BucketName}-kms-key-Arn-Export`,
+      description: 'The ARN of the KMS key.',
+    });
+
+    // export kmsKey ID
+    new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.s3BucketName}-kms-key-Id-Export`, {
+      value: kmsKey.keyId,
+      exportName: `${props.deployEnvironment}-${props.deployRegion}-${props.s3BucketName}-kms-key-Id-Export`,
+      description: 'The ID of the KMS key.',
+    });
   }
 }
