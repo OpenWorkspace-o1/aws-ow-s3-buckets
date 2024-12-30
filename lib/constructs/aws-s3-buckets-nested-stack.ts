@@ -29,8 +29,8 @@ export class AwsS3BucketsNestedStack extends NestedStack {
                     transitionAfter: cdk.Duration.days(90),
                 },
                 {
-                        storageClass: s3.StorageClass.GLACIER,
-                        transitionAfter: cdk.Duration.days(180),
+                    storageClass: s3.StorageClass.GLACIER,
+                    transitionAfter: cdk.Duration.days(180),
                 },
             ],
           },
