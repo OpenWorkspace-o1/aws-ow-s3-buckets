@@ -66,7 +66,7 @@ Required environment variables:
 - `CDK_DEPLOY_REGION`: AWS region for deployment
 - `ENVIRONMENT`: Deployment environment
 - `OWNER`: Team/Owner identifier
-- `S3_BUCKET_NAME`: Base name for S3 bucket
+- `S3_BUCKET_NAMES`: Base name for S3 buckets
 
 ## Deployment
 
