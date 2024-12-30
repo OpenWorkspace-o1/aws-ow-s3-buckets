@@ -58,7 +58,7 @@ APP_NAME=your-app-name
 CDK_DEPLOY_REGION=your-region
 ENVIRONMENT=development|staging|production
 OWNER=your-team
-S3_BUCKET_NAME=your-bucket-name
+S3_BUCKET_NAMES=your-bucket-name,your-bucket-name-2
 ```
 
 Required environment variables:
