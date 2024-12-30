@@ -24,11 +24,12 @@ export class AwsS3Stack extends cdk.Stack {
     });
 
     for (const s3BucketName of props.s3BucketNames) {
-      new AwsS3BucketsNestedStack(this, `${props.resourcePrefix}-${s3BucketName}-nested-stack`, {
+      new AwsS3BucketsNestedStack(this, `${s3BucketName}-AwsS3BucketsNestedStack`, {
         ...props,
         s3BucketName,
         kmsKeyArn: kmsKey.keyArn,
         removalPolicy: removalPolicy,
+        description: `${props.resourcePrefix}-${s3BucketName}-AwsS3BucketsNestedStack`,
       });
     }
 
