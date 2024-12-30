@@ -21,7 +21,7 @@ checkEnvVariables('APP_NAME',
     'CDK_DEPLOY_REGION',
     'ENVIRONMENT',
     'OWNER',
-    'S3_BUCKET_NAME',
+    'S3_BUCKET_NAMES',
 );
 
 const { CDK_DEFAULT_ACCOUNT: account } = process.env;
@@ -52,11 +52,11 @@ const stackProps: AwsS3StackProps = {
     shortDeployEnvironment,
     appName,
     owner,
-    s3BucketName: process.env.S3_BUCKET_NAME!,
+    s3BucketNames: process.env.S3_BUCKET_NAMES!.split(','),
 };
 new AwsS3Stack(app, `AwsS3Stack`, {
     ...stackProps,
-    stackName: `${appName}-${deployEnvironment}-${cdkRegion}-AwsS3Stack`,
+    stackName: `${deployEnvironment}-${cdkRegion}-AwsS3Stack`,
     description: `AwsS3Stack for ${appName} in ${cdkRegion} ${deployEnvironment}.`,
 });
 
