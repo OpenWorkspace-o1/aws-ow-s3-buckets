@@ -1,6 +1,14 @@
 import { StackProps } from "aws-cdk-lib";
 
-export interface AwsS3StackProps extends StackProps {
+export interface AwsS3StackProps extends StackProps, AwsS3BaseStackProps {
+    /**
+     * Name of the S3 buckets
+     * Example: ["myapp-prod-bucket", "myapp-dev-bucket"]
+     */
+    readonly s3BucketNames: string[];
+}
+
+export interface AwsS3BaseStackProps {
     /**
      * Prefix used for naming AWS resources
      * Example: "myapp-prod"
@@ -36,10 +44,4 @@ export interface AwsS3StackProps extends StackProps {
      * Example: "platform-team"
      */
     readonly owner: string;
-
-    /**
-     * Name of the S3 bucket
-     * Example: "myapp-prod-bucket"
-     */
-    readonly s3BucketName: string;
 }
