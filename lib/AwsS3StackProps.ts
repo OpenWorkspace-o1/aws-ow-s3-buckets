@@ -2,8 +2,8 @@ import { StackProps } from "aws-cdk-lib";
 
 export interface AwsS3StackProps extends StackProps, AwsS3BaseStackProps {
     /**
-     * Name of the S3 bucket
-     * Example: "myapp-prod-bucket"
+     * Name of the S3 buckets
+     * Example: ["myapp-prod-bucket", "myapp-dev-bucket"]
      */
     readonly s3BucketNames: string[];
 }
