@@ -18,7 +18,9 @@ export class AwsS3Stack extends cdk.Stack {
     const removalPolicy = props.deployEnvironment === 'production' ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY;
 
     const kmsKey = new kms.Key(this, `${props.resourcePrefix}-s3-buckets-kms-key`, {
+      enabled: true,
       enableKeyRotation: true,
+      rotationPeriod: cdk.Duration.days(30),
       removalPolicy: removalPolicy,
       description: `${props.resourcePrefix}-s3-buckets-kms-key`,
     });
