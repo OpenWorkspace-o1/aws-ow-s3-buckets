@@ -14,7 +14,8 @@ export class AwsS3BucketsNestedStack extends NestedStack {
     // define an S3 bucket
     const s3Bucket = new s3.Bucket(this, `${props.resourcePrefix}-${props.s3BucketName}`, {
         bucketName: `${props.s3BucketName}`,
-        encryption: s3.BucketEncryption.S3_MANAGED,
+        encryption: s3.BucketEncryption.KMS,
+        encryptionKey: existingKmsKey,
         blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
         publicReadAccess: false,
         removalPolicy: props.removalPolicy,
@@ -44,8 +45,7 @@ export class AwsS3BucketsNestedStack extends NestedStack {
         ],
         serverAccessLogsBucket: new s3.Bucket(this, `${props.resourcePrefix}-${props.s3BucketName}-logs`, {
             bucketName: `${props.s3BucketName}-logs`,
-            encryption: s3.BucketEncryption.KMS,
-            encryptionKey: existingKmsKey,
+            encryption: s3.BucketEncryption.S3_MANAGED,
             blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
             publicReadAccess: false,
             removalPolicy: props.removalPolicy,
