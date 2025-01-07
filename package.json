@@ -1,6 +1,6 @@
 {
   "name": "aws-s3",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "bin": {
     "aws-s3": "bin/aws-s3.js"
   },
