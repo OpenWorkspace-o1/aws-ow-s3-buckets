@@ -6,4 +6,5 @@
 - Incremented package version from `0.1.1` to `0.1.2`
 
 ### Added
-- Added `cdk` script to the `scripts` section in `package.json
+
+- Added `cdk` script to the `scripts` section in `package.json`
