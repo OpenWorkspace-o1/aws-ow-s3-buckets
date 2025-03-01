@@ -20,18 +20,26 @@ export class AwsS3Stack extends cdk.Stack {
     const kmsKey = new kms.Key(this, `${props.resourcePrefix}-s3-buckets-kms-key`, {
       enabled: true,
       enableKeyRotation: true,
-      rotationPeriod: cdk.Duration.days(30),
+      rotationPeriod: cdk.Duration.days(90),
       removalPolicy: removalPolicy,
       description: `${props.resourcePrefix}-s3-buckets-kms-key`,
     });
 
     for (const s3BucketName of props.s3BucketNames) {
+      const deploymentBucketName = `${props.resourcePrefix}-${s3BucketName}`;
       new AwsS3BucketsNestedStack(this, `${s3BucketName}-AwsS3BucketsNestedStack`, {
         ...props,
-        s3BucketName,
+        s3BucketName: deploymentBucketName,
         kmsKeyArn: kmsKey.keyArn,
         removalPolicy: removalPolicy,
-        description: `${props.resourcePrefix}-${s3BucketName}-AwsS3BucketsNestedStack`,
+        description: `${props.resourcePrefix}-${deploymentBucketName}-AwsS3BucketsNestedStack`,
+      });
+
+      // export deployment bucket name
+      new cdk.CfnOutput(this, `${props.resourcePrefix}-${s3BucketName}-deployment-bucket-name-Export`, {
+        value: deploymentBucketName,
+        exportName: `${props.deployEnvironment}-${props.deployRegion}-${s3BucketName}-deployment-bucket-name-Export`,
+        description: 'The name of the deployment bucket.',
       });
     }
 
