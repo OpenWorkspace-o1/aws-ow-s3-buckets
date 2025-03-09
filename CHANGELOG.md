@@ -1,3 +1,11 @@
+## [2025-03-09][PR#23](https://github.com/OpenWorkspace-o1/aws-s3-buckets/pull/23)
+
+### Updated
+- Updated `aws-cdk` from `2.1001.0` to `2.1003.0` and `aws-cdk-lib` from `2.181.1` to `2.182.0`.
+- Updated `cdk-nag` from `2.35.34` to `2.35.40`.
+- Updated `@types/node` from `22.13.7` to `22.13.10`.
+- Bumped project version from `0.1.3` to `0.1.4`.
+
 ## [2025-03-01][PR#20](https://github.com/OpenWorkspace-o1/aws-s3-buckets/pull/20)
 
 ### Fixed
