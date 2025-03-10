@@ -1,3 +1,9 @@
+## [2025-03-10][PR#29](https://github.com/OpenWorkspace-o1/aws-ow-s3-buckets/pull/29)
+
+### Changed
+- Updated resource naming conventions to include `deployRegion` for multi-region deployments, affecting KMS keys, S3 buckets, and log buckets.
+- Modified export names for KMS keys, S3 buckets, and log buckets to include region for better regional identification.
+
 ## [2025-03-10][PR#25](https://github.com/OpenWorkspace-o1/aws-ow-s3-buckets/pull/25)
 
 ### Fixed
