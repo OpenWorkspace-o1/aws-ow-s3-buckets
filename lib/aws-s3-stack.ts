@@ -36,7 +36,7 @@ export class AwsS3Stack extends cdk.Stack {
 
       // export deployment bucket name
       new cdk.CfnOutput(this, `${props.resourcePrefix}-${s3BucketName}-deployment-bucket-name-Export`, {
-        value: s3BucketName,
+        value: `${props.resourcePrefix}-${s3BucketName}`,
         exportName: `${props.deployEnvironment}-${props.deployRegion}-${s3BucketName}-deployment-bucket-name-Export`,
         description: 'The name of the deployment bucket.',
       });
