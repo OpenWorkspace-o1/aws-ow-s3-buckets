@@ -26,18 +26,17 @@ export class AwsS3Stack extends cdk.Stack {
     });
 
     for (const s3BucketName of props.s3BucketNames) {
-      const deploymentBucketName = `${props.resourcePrefix}-${s3BucketName}`;
       new AwsS3BucketsNestedStack(this, `${s3BucketName}-AwsS3BucketsNestedStack`, {
         ...props,
-        s3BucketName: deploymentBucketName,
+        s3BucketName: s3BucketName,
         kmsKeyArn: kmsKey.keyArn,
         removalPolicy: removalPolicy,
-        description: `${props.resourcePrefix}-${deploymentBucketName}-AwsS3BucketsNestedStack`,
+        description: `${props.resourcePrefix}-${s3BucketName}-AwsS3BucketsNestedStack`,
       });
 
       // export deployment bucket name
       new cdk.CfnOutput(this, `${props.resourcePrefix}-${s3BucketName}-deployment-bucket-name-Export`, {
-        value: deploymentBucketName,
+        value: `${props.resourcePrefix}-${s3BucketName}`,
         exportName: `${props.deployEnvironment}-${props.deployRegion}-${s3BucketName}-deployment-bucket-name-Export`,
         description: 'The name of the deployment bucket.',
       });
