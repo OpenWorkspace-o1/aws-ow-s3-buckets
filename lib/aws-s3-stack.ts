@@ -17,12 +17,12 @@ export class AwsS3Stack extends cdk.Stack {
 
     const removalPolicy = props.deployEnvironment === 'production' ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY;
 
-    const kmsKey = new kms.Key(this, `${props.resourcePrefix}-s3-buckets-kms-key`, {
+    const kmsKey = new kms.Key(this, `${props.resourcePrefix}-${props.deployRegion}-s3-buckets-kms-key`, {
       enabled: true,
       enableKeyRotation: true,
       rotationPeriod: cdk.Duration.days(90),
       removalPolicy: removalPolicy,
-      description: `${props.resourcePrefix}-s3-buckets-kms-key`,
+      description: `${props.resourcePrefix}-${props.deployRegion}-s3-buckets-kms-key`,
     });
 
     for (const s3BucketName of props.s3BucketNames) {
@@ -36,21 +36,21 @@ export class AwsS3Stack extends cdk.Stack {
 
       // export deployment bucket name
       new cdk.CfnOutput(this, `${props.resourcePrefix}-${s3BucketName}-deployment-bucket-name-Export`, {
-        value: `${props.resourcePrefix}-${s3BucketName}`,
+        value: `${props.resourcePrefix}-${props.deployRegion}-${s3BucketName}`,
         exportName: `${props.deployEnvironment}-${props.deployRegion}-${s3BucketName}-deployment-bucket-name-Export`,
         description: 'The name of the deployment bucket.',
       });
     }
 
     // export kmsKey ARN
-    new cdk.CfnOutput(this, `${props.resourcePrefix}-s3-buckets-kms-key-Arn-Export`, {
+    new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.deployRegion}-s3-buckets-kms-key-Arn-Export`, {
       value: kmsKey.keyArn,
       exportName: `${props.deployEnvironment}-${props.deployRegion}-s3-buckets-kms-key-Arn-Export`,
       description: 'The ARN of the KMS key.',
     });
 
     // export kmsKey ID
-    new cdk.CfnOutput(this, `${props.resourcePrefix}-s3-buckets-kms-key-Id-Export`, {
+    new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.deployRegion}-s3-buckets-kms-key-Id-Export`, {
       value: kmsKey.keyId,
       exportName: `${props.deployEnvironment}-${props.deployRegion}-s3-buckets-kms-key-Id-Export`,
       description: 'The ID of the KMS key.',
