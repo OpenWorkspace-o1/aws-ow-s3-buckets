@@ -23,18 +23,18 @@ export class AwsS3BucketsNestedStack extends NestedStack {
         accessControl: s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL,
         versioned: true, // Enable versioning
         lifecycleRules: [
-          {
-            transitions: [
-                {
-                    storageClass: s3.StorageClass.INFREQUENT_ACCESS,
-                    transitionAfter: cdk.Duration.days(90),
-                },
-                {
-                    storageClass: s3.StorageClass.GLACIER,
-                    transitionAfter: cdk.Duration.days(180),
-                },
-            ],
-          },
+            {
+                transitions: [
+                    {
+                        storageClass: s3.StorageClass.INFREQUENT_ACCESS,
+                        transitionAfter: cdk.Duration.days(90),
+                    },
+                    {
+                        storageClass: s3.StorageClass.GLACIER,
+                        transitionAfter: cdk.Duration.days(180),
+                    },
+                ],
+            },
         ],
         intelligentTieringConfigurations: [
             {
@@ -44,15 +44,15 @@ export class AwsS3BucketsNestedStack extends NestedStack {
             },
         ],
         serverAccessLogsBucket: new s3.Bucket(this, `${props.resourcePrefix}-${props.s3BucketName}-logs`, {
-            bucketName: `${props.s3BucketName}-logs`,
+            bucketName: `${props.resourcePrefix}-${props.s3BucketName}-logs`,
             encryption: s3.BucketEncryption.S3_MANAGED,
             blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
             publicReadAccess: false,
             removalPolicy: props.removalPolicy,
             versioned: false,
-            enforceSSL: true,  // Ensure all requests to the S3 bucket use SSL
+            enforceSSL: true,
         }),
-        enforceSSL: true,  // Ensure all requests to the S3 bucket use SSL
+        enforceSSL: true,
         serverAccessLogsPrefix: `${props.resourcePrefix}-${props.s3BucketName}-logs/`
     });
 
