@@ -12,8 +12,8 @@ export class AwsS3BucketsNestedStack extends NestedStack {
     const existingKmsKey = kms.Key.fromKeyArn(this, `${props.resourcePrefix}-${props.s3BucketName}-kms-key`, props.kmsKeyArn);
 
     // define an S3 bucket
-    const s3Bucket = new s3.Bucket(this, `${props.resourcePrefix}-${props.s3BucketName}`, {
-        bucketName: `${props.resourcePrefix}-${props.s3BucketName}`,
+    const s3Bucket = new s3.Bucket(this, `${props.resourcePrefix}-${props.deployRegion}-${props.s3BucketName}`, {
+        bucketName: `${props.resourcePrefix}-${props.deployRegion}-${props.s3BucketName}`,
         encryption: s3.BucketEncryption.KMS,
         encryptionKey: existingKmsKey,
         blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
@@ -43,8 +43,8 @@ export class AwsS3BucketsNestedStack extends NestedStack {
                 deepArchiveAccessTierTime: cdk.Duration.days(180),
             },
         ],
-        serverAccessLogsBucket: new s3.Bucket(this, `${props.resourcePrefix}-${props.s3BucketName}-logs`, {
-            bucketName: `${props.resourcePrefix}-${props.s3BucketName}-logs`,
+        serverAccessLogsBucket: new s3.Bucket(this, `${props.resourcePrefix}-${props.deployRegion}-${props.s3BucketName}-logs`, {
+            bucketName: `${props.resourcePrefix}-${props.deployRegion}-${props.s3BucketName}-logs`,
             encryption: s3.BucketEncryption.S3_MANAGED,
             blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
             publicReadAccess: false,
@@ -53,18 +53,18 @@ export class AwsS3BucketsNestedStack extends NestedStack {
             enforceSSL: true,
         }),
         enforceSSL: true,
-        serverAccessLogsPrefix: `${props.resourcePrefix}-${props.s3BucketName}-logs/`
+        serverAccessLogsPrefix: `${props.resourcePrefix}-${props.deployRegion}-${props.s3BucketName}-logs/`
     });
 
     // export s3Bucket name
-    new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.s3BucketName}-Export`, {
+    new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.deployRegion}-${props.s3BucketName}-Export`, {
         value: s3Bucket.bucketName,
         exportName: `${props.deployEnvironment}-${props.deployRegion}-${props.s3BucketName}-Export`,
         description: 'The name of the S3 bucket.',
     });
 
     // export s3Bucket ARN
-    new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.s3BucketName}-Arn-Export`, {
+    new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.deployRegion}-${props.s3BucketName}-Arn-Export`, {
         value: s3Bucket.bucketArn,
         exportName: `${props.deployEnvironment}-${props.deployRegion}-${props.s3BucketName}-Arn-Export`,
         description: 'The ARN of the S3 bucket.',
