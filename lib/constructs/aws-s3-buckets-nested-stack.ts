@@ -13,7 +13,7 @@ export class AwsS3BucketsNestedStack extends NestedStack {
 
     // define an S3 bucket
     const s3Bucket = new s3.Bucket(this, `${props.resourcePrefix}-${props.s3BucketName}`, {
-        bucketName: `${props.s3BucketName}`,
+        bucketName: `${props.resourcePrefix}-${props.s3BucketName}`,
         encryption: s3.BucketEncryption.KMS,
         encryptionKey: existingKmsKey,
         blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
@@ -21,7 +21,7 @@ export class AwsS3BucketsNestedStack extends NestedStack {
         removalPolicy: props.removalPolicy,
         autoDeleteObjects: props.removalPolicy === cdk.RemovalPolicy.DESTROY,
         accessControl: s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL,
-        versioned: true, // Enable versioning
+        versioned: true,
         lifecycleRules: [
             {
                 transitions: [
