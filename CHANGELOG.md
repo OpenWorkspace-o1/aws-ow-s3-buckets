@@ -1,3 +1,12 @@
+## [2025-03-10][PR#25](https://github.com/OpenWorkspace-o1/aws-ow-s3-buckets/pull/25)
+
+### Fixed
+- Fixed `serverAccessLogsBucket` naming rule to include `resourcePrefix`.
+
+### Updated
+- Updated `cdk-nag` from `2.35.40` to `2.35.41`.
+- Bumped package version from `0.1.4` to `0.1.5`.
+
 ## [2025-03-09][PR#23](https://github.com/OpenWorkspace-o1/aws-s3-buckets/pull/23)
 
 ### Updated
