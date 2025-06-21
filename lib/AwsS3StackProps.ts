@@ -6,6 +6,12 @@ export interface AwsS3StackProps extends StackProps, AwsS3BaseStackProps {
      * Example: ["myapp-prod-bucket", "myapp-dev-bucket"]
      */
     readonly s3BucketNames: string[];
+
+    /**
+     * EventBridge enabled
+     * Example: [true, false]
+     */
+    readonly eventBridgeEnableds: boolean[];
 }
 
 export interface AwsS3BaseStackProps {

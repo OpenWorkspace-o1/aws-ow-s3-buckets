@@ -25,12 +25,13 @@ export class AwsS3Stack extends cdk.Stack {
       description: `${props.resourcePrefix}-${props.deployRegion}-s3-buckets-kms-key`,
     });
 
-    for (const s3BucketName of props.s3BucketNames) {
+    for (const [index, s3BucketName] of props.s3BucketNames.entries()) {
       new AwsS3BucketsNestedStack(this, `${s3BucketName}-AwsS3BucketsNestedStack`, {
         ...props,
         s3BucketName: s3BucketName,
         kmsKeyArn: kmsKey.keyArn,
         removalPolicy: removalPolicy,
+        eventBridgeEnabled: props.eventBridgeEnableds[index],
         description: `${props.resourcePrefix}-${s3BucketName}-AwsS3BucketsNestedStack`,
       });
 
