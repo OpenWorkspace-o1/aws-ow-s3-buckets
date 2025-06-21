@@ -22,6 +22,7 @@ checkEnvVariables('APP_NAME',
     'ENVIRONMENT',
     'OWNER',
     'S3_BUCKET_NAMES',
+    'S3_BUCKET_ENABLE_EVENT_BRIDGES',
 );
 
 const { CDK_DEFAULT_ACCOUNT: account } = process.env;
@@ -31,6 +32,7 @@ const deployEnvironment = process.env.ENVIRONMENT!;
 const shortDeployEnvironment = getShortEnvironmentName(deployEnvironment);
 const appName = process.env.APP_NAME!;
 const owner = process.env.OWNER!;
+const eventBridgeEnableds = process.env.S3_BUCKET_ENABLE_EVENT_BRIDGES!.split(',');
 
 // check best practices based on AWS Solutions Security Matrix
 appAspects.add(new AwsSolutionsChecks());
@@ -53,6 +55,7 @@ const stackProps: AwsS3StackProps = {
     appName,
     owner,
     s3BucketNames: process.env.S3_BUCKET_NAMES!.split(','),
+    eventBridgeEnableds: eventBridgeEnableds.map(Boolean),
 };
 new AwsS3Stack(app, `AwsS3Stack`, {
     ...stackProps,

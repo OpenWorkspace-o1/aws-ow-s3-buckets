@@ -20,4 +20,10 @@ export interface AwsS3BucketsNestedStackProps extends NestedStackProps, AwsS3Bas
      * Example: cdk.RemovalPolicy.DESTROY
      */
     readonly removalPolicy: cdk.RemovalPolicy;
+
+    /**
+     * EventBridge enabled
+     * Example: true
+     */
+    readonly eventBridgeEnabled: boolean;
 }

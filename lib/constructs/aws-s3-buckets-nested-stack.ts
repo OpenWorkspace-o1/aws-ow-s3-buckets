@@ -53,6 +53,7 @@ export class AwsS3BucketsNestedStack extends NestedStack {
             enforceSSL: true,
         }),
         enforceSSL: true,
+        eventBridgeEnabled: props.eventBridgeEnabled,
         serverAccessLogsPrefix: `${props.resourcePrefix}-${props.deployRegion}-${props.s3BucketName}-logs/`
     });
 
