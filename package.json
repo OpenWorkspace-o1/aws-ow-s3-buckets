@@ -1,6 +1,6 @@
 {
   "name": "aws-s3",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "bin": {
     "aws-s3": "bin/aws-s3.js"
   },
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "aws-cdk-lib": "2.202.0",
-    "cdk-nag": "^2.36.23",
+    "cdk-nag": "^2.36.24",
     "constructs": "^10.4.2",
     "dotenv": "^16.5.0"
   },
