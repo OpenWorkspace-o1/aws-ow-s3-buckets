@@ -6,5 +6,6 @@ declare module NodeJS {
         APP_NAME: string;
         OWNER: string;
         S3_BUCKET_NAMES: string;
+        S3_BUCKET_ENABLE_EVENT_BRIDGES: string;
     }
 }
